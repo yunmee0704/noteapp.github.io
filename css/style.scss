@@ -64,7 +64,17 @@ body {
 				display: flex;
 				height: 4vh;
 				justify-content: space-between;
+				align-items: center;
 				margin-bottom: 1vw;
+				input[type="radio"]{
+					width: 1vw;
+					height: 1vw;
+					border: 1px solid #aaa;
+					border-radius: 50%;
+					&:checked{
+						border: 3px solid tomato;
+					}
+				}				
 				.text-box {
 					width: 80%;
 					background: #fff;

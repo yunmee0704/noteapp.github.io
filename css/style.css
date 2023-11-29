@@ -125,7 +125,17 @@ body {
   display: flex;
   height: 4vh;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 1vw;
+}
+.container .note-box .list-area li input[type=radio] {
+  width: 1vw;
+  height: 1vw;
+  border: 1px solid #aaa;
+  border-radius: 50%;
+}
+.container .note-box .list-area li input[type=radio]:checked {
+  border: 3px solid tomato;
 }
 .container .note-box .list-area li .text-box {
   width: 80%;
