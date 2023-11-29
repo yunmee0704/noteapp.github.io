@@ -1,1 +1,14 @@
-/*# sourceMappingURL=common.css.map */
+@charset "UTF-8";
+/* input,button 기본 스타일 초기화 */
+input,
+button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+  border: none;
+}
+
+input:focus {
+  outline: none;
+}/*# sourceMappingURL=common.css.map */
