@@ -73,13 +73,18 @@ body {
 }
 
 .container {
-  width: 50vw;
+  width: 70vw;
   box-sizing: border-box;
   padding: 2vw;
   background-color: #fff;
   border-radius: 1vw;
   display: flex;
   justify-content: center;
+}
+@media (max-width: 767px) {
+  .container {
+    width: 70vw;
+  }
 }
 .container .note-box {
   width: 100%;
@@ -89,6 +94,16 @@ body {
   font-weight: 900;
   text-align: center;
   margin-bottom: 2vw;
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .container .note-box h1 {
+    font-size: 4vw;
+  }
+}
+@media (max-width: 767px) {
+  .container .note-box h1 {
+    font-size: 5vw;
+  }
 }
 .container .note-box .add-area {
   display: flex;
@@ -103,6 +118,11 @@ body {
   font-size: 2vw;
   border-bottom: 1px solid #aaa;
 }
+@media (max-width: 767px) {
+  .container .note-box .add-area input {
+    font-size: 3vw;
+  }
+}
 .container .note-box .add-area input::-moz-placeholder {
   font-weight: 700;
 }
@@ -116,6 +136,16 @@ body {
   font-weight: 900;
   color: #fff;
   border-radius: 0.5vw;
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .container .note-box .add-area button {
+    height: 4vh;
+  }
+}
+@media (max-width: 767px) {
+  .container .note-box .add-area button {
+    height: 5vh;
+  }
 }
 .container .note-box .list-area {
   width: 100%;
@@ -137,10 +167,32 @@ body {
 .container .note-box .list-area li input[type=radio]:checked {
   border: 3px solid tomato;
 }
+@media (min-width: 768px) and (max-width: 1023px) {
+  .container .note-box .list-area li input[type=radio] {
+    width: 2vw;
+    height: 2vw;
+  }
+}
+@media (max-width: 767px) {
+  .container .note-box .list-area li input[type=radio] {
+    width: 3vw;
+    height: 3vw;
+  }
+}
 .container .note-box .list-area li .text-box {
   width: 80%;
   background: #fff;
   font-size: 1vw;
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .container .note-box .list-area li .text-box {
+    font-size: 2vw;
+  }
+}
+@media (max-width: 767px) {
+  .container .note-box .list-area li .text-box {
+    font-size: 3vw;
+  }
 }
 .container .note-box .list-area li .button-box {
   width: 15%;
@@ -159,4 +211,19 @@ body {
 }
 .container .note-box .list-area li .button-box button:last-child {
   background-color: #fd1d1d;
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .container .note-box .list-area li .button-box button {
+    font-size: 1.6vw;
+  }
+}
+@media (max-width: 767px) {
+  .container .note-box .list-area li .button-box button {
+    font-size: 1.5vw;
+  }
+}
+@media (max-width: 767px) {
+  .container .note-box .list-area li {
+    height: 5vw;
+  }
 }/*# sourceMappingURL=style.css.map */

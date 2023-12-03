@@ -1,5 +1,6 @@
 @import 'reset.scss';
 @import 'common.scss';
+@import 'mixin.scss';
 
 body {
 	width: 100vw;
@@ -11,13 +12,17 @@ body {
 }
 
 .container {
-	width: 50vw;
+	width: 70vw;
 	box-sizing: border-box;
 	padding: 2vw;
 	background-color: #fff;
 	border-radius: 1vw;
 	display: flex;
 	justify-content: center;
+
+	@include mobile{
+		width: 70vw;
+	}
 
 	.note-box {
 		width: 100%;
@@ -27,6 +32,12 @@ body {
 			font-weight: 900;
 			text-align: center;
 			margin-bottom: 2vw;
+			@include tablet{
+				font-size: 4vw;
+			}
+			@include mobile{
+				font-size: 5vw;
+			}
 		}
 
 		.add-area {
@@ -40,6 +51,10 @@ body {
 				padding: 1vw;
 				font-size: 2vw;
 				border-bottom: 1px solid #aaa;
+			
+				@include mobile{
+					font-size : 3vw;
+				}
 			}
 			input::placeholder{
 				font-weight: 700;
@@ -54,6 +69,12 @@ body {
 				font-weight: 900;
 				color: #fff;
 				border-radius: 0.5vw;
+				@include tablet{
+					height : 4vh;
+				}
+				@include mobile{
+					height : 5vh;
+				}
 			}
 		}
 
@@ -74,11 +95,27 @@ body {
 					&:checked{
 						border: 3px solid tomato;
 					}
+					@include tablet{
+						width: 2vw;
+						height: 2vw;
+					}
+					@include mobile{
+						width: 3vw;
+						height: 3vw;
+					}
+				
 				}				
 				.text-box {
 					width: 80%;
 					background: #fff;
 					font-size: 1vw;
+					@include tablet{
+						font-size: 2vw;
+					}
+					@include mobile{
+						font-size: 3vw;
+					}
+				
 				}
 
 				.button-box {
@@ -98,10 +135,20 @@ body {
 						&:last-child{
 							background-color: #fd1d1d;
 						}
+						@include tablet{
+							font-size:1.6vw;
+						}
+						@include mobile{
+							font-size: 1.5vw;
+						}
 					}
+				}
+				@include mobile{
+					height : 5vw;
 				}
 			}
 
 		}
 	}
 }
+
