@@ -42,9 +42,6 @@ add_btn.addEventListener('click', function () {
 		return false; // 인풋 창에 아무것도 없으면 작동안함
 	} else {
 		todo_arr.push(add_text); //추가하는 내용 투두리스트 배열에 추가
-
-
-		// 로컬스토리지 세팅 추가기능 함수로 저장
 		todo_arr2 = JSON.stringify(todo_arr); //추가된 투두리스트 json형태로
 		localStorage.setItem('todo', todo_arr2); // 로컬스토리지에 todo 키 값의 배열 세팅
 		list_area.innerHTML = ''; //전체리스트 지운 후 
@@ -65,10 +62,7 @@ check_btn.forEach(function (el) {
 
 
 //삭제
-
-
-
-delete_btn.forEach(function (el, index) {
+delete_btn.forEach(function (el, index) {	
 	el.addEventListener('click', function () {		
 		todo_arr = localStorage.getItem('todo');
 		todo_arr = JSON.parse(todo_arr);
@@ -78,9 +72,6 @@ delete_btn.forEach(function (el, index) {
 		list_area.innerHTML = ''; //전체리스트 지운 후 
 		set_list();
 	});
-	console.log(delete_btn)
-	return delete_btn;
-
 });
 
 
