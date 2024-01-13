@@ -180,9 +180,10 @@ body{
     padding: 0.2rem 1rem;    
     box-sizing:border-box;
     display: none;
+    transition: all 0.30s ease-in-out;
 }
 
-.app ul li div:last-child.on{
+.app ul li div:last-child.show{
     display: block;
 }
 .app ul li div:last-child .save{
@@ -190,6 +191,7 @@ body{
 }
 .app ul li textarea{
     width:70%;
+    margin-bottom: 0.1rem;
     /* 말줄임표 */
     display: -webkit-box;
     -webkit-line-clamp: 1; 

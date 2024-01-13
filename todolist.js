@@ -36,25 +36,7 @@ function handleTodoDelBtnClick(clickedId){
     saveTools()//로컬저장소에 저장하기
 }
 
-//할일 수정하기
-function handletodoDoneBtnClick(clickedId){
-    todoArr = todoArr.map(function(aTodo){
-        if(aTodo.todoId === clickedId){    
-          return {
-            ...aTodo,
-            todoText : document.querySelector('textarea').value                        
-           }           
-        }else{
-            return aTodo
-        }      
-     }
-     
-     )
-     displayTodos()//보여주기
-     saveTools()//로컬저장소에 저장하기  
 
-  
-}
 
 //한일 완료 체크하기
 function handleTodoItemClick(clickedId){
@@ -67,6 +49,7 @@ function handleTodoItemClick(clickedId){
         }else{
             return aTodo
         }
+        
     })
     
     displayTodos()
@@ -77,13 +60,15 @@ function handleTodoItemClick(clickedId){
 //할일 보여주기
 function displayTodos(){    
     todoList.innerHTML=''//초기화 한 후에 진행함. 안그러면 누적된 데이터가 매번 보여짐 
-    
+   
     todoArr.forEach(function(aTodo){//로컬스토리지에서 가져온 투두리스트의 자료들만큼
         const todoItem = document.createElement('li')//li 생성
-        const div =document.createElement('div')//div 생성
-        todoItem.appendChild(div);
-        const editController = `<div class="edit-controller"><span class='save'>저장</span></div>`
-        todoItem.insertAdjacentHTML('beforeend',editController)
+        const div1 =document.createElement('div')//div 생성
+        const div2 =document.createElement('div')//div 생성
+        todoItem.appendChild(div1);
+        todoItem.appendChild(div2);
+        const EditSaveBtn = document.createElement('span')
+        EditSaveBtn.textContent='저장'
         const todoContent = document.createElement('textarea')//내용들어갈 부분 
         const btnGroup = document.createElement('p')//버튼그룹 생성
         const todoDelBtn = document.createElement('span')//삭제버튼 생성
@@ -92,9 +77,8 @@ function displayTodos(){
         todoDoneBtn.textContent='완료'//그 안에 들어갈 삭제버튼 생성
         todoContent.textContent = aTodo.todoText //li안에 들어갈 내용은 투두리스트 배열의 각 자료의 내용
         todoItem.title='클릭하면 완료됨'//li위에 마우스를 올리면 완료하는 방법 나옴
-        todoDelBtn.title='클릭하면 삭제됨'//삭제버튼 위에 마우스 올리면 삭제하는법 설명             
-     
-        
+        todoDelBtn.title='클릭하면 삭제됨'//삭제버튼 위에 마우스 올리면 삭제하는법 설명        
+      
 
         // 완료스타일
         if(aTodo.todoDone){//만약 todoDone이 true가 되면
@@ -106,9 +90,7 @@ function displayTodos(){
 
         // 완료표시
         todoDoneBtn.addEventListener('click',function(){
-            handleTodoItemClick(aTodo.todoId);           
-          
-       
+            handleTodoItemClick(aTodo.todoId);               
         })
 
         // 삭제
@@ -116,24 +98,39 @@ function displayTodos(){
             handleTodoDelBtnClick(aTodo.todoId)         
         })
 
+        //할일 수정하기
+        function handletodoEditBtnClick(clickedId){
+            todoArr = todoArr.map(function(aTodo){
+                if(aTodo.todoId === clickedId){    
+                return {
+                    ...aTodo,
+                    todoText : todoContent.value                        
+                }           
+                }else{
+                    return aTodo
+                }      
+            }
+            
+            )
+            
+            displayTodos()//보여주기
+            saveTools()//로컬저장소에 저장하기  
+  
+        }
         // 수정컨트롤러나오기
-        todoContent.addEventListener('click',function(e){
-        const editShow = document.querySelector('.edit-controller')//수정 저장버튼 있는 div
-        const EditSaveBtn = document.querySelector('.save')//수정 저장 버튼
-        editShow.classList.add('on'); //edit-controller 보이도록
-
-        //수정버튼 클릭시
-        EditSaveBtn.addEventListener('click',function(){            
-            handletodoDoneBtnClick(aTodo.todoId) //수정하여 배열에 다시 수정 저장 후 로컬스토리지에 저장장
-            editShow.classList.remove('on');//edit-controller 안보이게
+        todoContent.addEventListener('click',function(){
+            div2.classList.add('show'); //edit-controller 보이도록
         })
-         })
-    
+        //수정버튼 클릭시
+        EditSaveBtn.addEventListener('click',function(e){            
+            handletodoEditBtnClick(aTodo.todoId) //수정하여 배열에 다시 수정 저장 후 로컬스토리지에 저장            
+        })   
     
       
         todoList.appendChild(todoItem)//새로운 내용 추가
-        div.appendChild(todoContent)//버튼그룹 추가
-        div.appendChild(btnGroup)//버튼그룹 추가
+        div1.appendChild(todoContent)//버튼그룹 추가
+        div1.appendChild(btnGroup)//버튼그룹 추가
+        div2.appendChild(EditSaveBtn)
         btnGroup.appendChild(todoDelBtn)//삭제버튼 추가
         btnGroup.appendChild(todoDoneBtn)//수정버튼 추가
     })
