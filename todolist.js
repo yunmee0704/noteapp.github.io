@@ -6,7 +6,10 @@ const edit_confirm = document.createElement('span')
 edit_confirm.textContent = '수정';
 todoForm.appendChild(edit_confirm)
 
+
 let todoArr=[];
+
+
 
 //로컬저장소에 저장하기
  function saveTools(){
@@ -21,6 +24,7 @@ function loadTodos(){
         todoArr = JSON.parse(myTodos)
         displayTodos()
     }  
+   
 }
 
 loadTodos()//로드 되면 로컬저장소에서 가져온 것 보여주기
@@ -75,13 +79,14 @@ function handleTodoItemClick(clickedId){
     })
     
     displayTodos()
+
     saveTools()
 }
 
 //할일 보여주기
-function displayTodos(){
-    todoList.innerHTML=''//초기화 한 후에 진행함. 안그러면 누적된 데이터가 매번 보여짐
-
+function displayTodos(){    
+    todoList.innerHTML=''//초기화 한 후에 진행함. 안그러면 누적된 데이터가 매번 보여짐 
+    
     todoArr.forEach(function(aTodo){//로컬스토리지에서 가져온 투두리스트의 자료들만큼
         const todoItem = document.createElement('li')//li 생성
         const todoContent = document.createElement('p')//내용들어갈 부분 
@@ -92,8 +97,7 @@ function displayTodos(){
         todoEditBtn.textContent='수정'//그 안에 들어갈 삭제버튼 생성
         todoContent.textContent = aTodo.todoText //li안에 들어갈 내용은 투두리스트 배열의 각 자료의 내용
         todoItem.title='클릭하면 완료됨'//li위에 마우스를 올리면 완료하는 방법 나옴
-        todoDelBtn.title='클릭하면 삭제됨'//삭제버튼 위에 마우스 올리면 삭제하는법 설명      
-        
+        todoDelBtn.title='클릭하면 삭제됨'//삭제버튼 위에 마우스 올리면 삭제하는법 설명             
      
 
         // 완료스타일
@@ -101,18 +105,19 @@ function displayTodos(){
             todoItem.classList.add('done')//done클래스를 붙여 완료표시 스타일 줌
         }else{ //아니면
             todoItem.classList.add('yet')//done클래스 안의 스타일을 사라지게.
+            
         }        
 
         // 완료표시
         todoItem.addEventListener('click',function(){
-            handleTodoItemClick(aTodo.todoId);
+            handleTodoItemClick(aTodo.todoId);           
+          
+       
         })
 
         // 삭제
-        todoDelBtn.addEventListener('click',function(){
-            
-            handleTodoDelBtnClick(aTodo.todoId)
-         
+        todoDelBtn.addEventListener('click',function(){            
+            handleTodoDelBtnClick(aTodo.todoId)         
         })
 
         todoEditBtn.addEventListener('click',function(e){
@@ -123,8 +128,6 @@ function displayTodos(){
             addTodo.classList.add('hidden')//기존 추가버튼 안보이게함
 
         })
-
-
       
         todoList.appendChild(todoItem)//새로운 내용 추가
         todoItem.appendChild(todoContent)//버튼그룹 추가
@@ -132,7 +135,17 @@ function displayTodos(){
         btnGroup.appendChild(todoDelBtn)//삭제버튼 추가
         btnGroup.appendChild(todoEditBtn)//수정버튼 추가
     })
+
+    if(todoArr.length !==0){
+        document.querySelector('.left-message').classList.add('on')
+        var leftTodo = document.getElementsByClassName('yet').length;//클래스가 yet인 것 갯수 찾기
+        document.querySelector('.left-message strong').textContent = leftTodo; // 남은 해야할 일 갯수 텍스트로 넣기 
+    }else{
+        document.querySelector('.left-message').classList.remove('on')
+    }
+
 }
+
 
 //할일 추가하기
     todoForm.addEventListener('submit',function(e){
