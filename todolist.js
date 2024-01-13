@@ -1,8 +1,6 @@
 //요소 선택 및 배열 선언
 const todoList = document.getElementById('todo-list')
 const todoForm = document.getElementById('todo-form')
-const addTodo = document.querySelector('.add-todo')
-
 
 
 let todoArr=[];
@@ -120,12 +118,14 @@ function displayTodos(){
 
         // 수정컨트롤러나오기
         todoContent.addEventListener('click',function(e){
-        const editShow = document.querySelector('.edit-controller')
-        const EditSaveBtn = document.querySelector('.save')
-        editShow.classList.add('on');
+        const editShow = document.querySelector('.edit-controller')//수정 저장버튼 있는 div
+        const EditSaveBtn = document.querySelector('.save')//수정 저장 버튼
+        editShow.classList.add('on'); //edit-controller 보이도록
+
+        //수정버튼 클릭시
         EditSaveBtn.addEventListener('click',function(){            
-            handletodoDoneBtnClick(aTodo.todoId)
-            editShow.classList.remove('on');
+            handletodoDoneBtnClick(aTodo.todoId) //수정하여 배열에 다시 수정 저장 후 로컬스토리지에 저장장
+            editShow.classList.remove('on');//edit-controller 안보이게
         })
          })
     
