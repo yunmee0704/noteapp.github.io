@@ -2,9 +2,7 @@
 const todoList = document.getElementById('todo-list')
 const todoForm = document.getElementById('todo-form')
 const addTodo = document.querySelector('.add-todo')
-const edit_confirm = document.createElement('span')
-edit_confirm.textContent = '수정';
-todoForm.appendChild(edit_confirm)
+
 
 
 let todoArr=[];
@@ -39,14 +37,14 @@ function handleTodoDelBtnClick(clickedId){
     displayTodos()//보여주기
     saveTools()//로컬저장소에 저장하기
 }
+
 //할일 수정하기
-function handleTodoEditBtnClick(clickedId){
- edit_confirm.addEventListener('click',function(){ //수정버튼 클릭하면!
+function handletodoDoneBtnClick(clickedId){
     todoArr = todoArr.map(function(aTodo){
         if(aTodo.todoId === clickedId){    
           return {
             ...aTodo,
-            todoText : todoForm.todo.value                        
+            todoText : document.querySelector('textarea').value                        
            }           
         }else{
             return aTodo
@@ -56,13 +54,8 @@ function handleTodoEditBtnClick(clickedId){
      )
      displayTodos()//보여주기
      saveTools()//로컬저장소에 저장하기  
-     edit_confirm.classList.remove('on');//수정 완료 후 수정버튼 안보이게
-     addTodo.classList.remove('hidden');//다시 추가 버튼 보이게
-     todoForm.todo.value ='';//인풋창 초기화
 
- })
-
-
+  
 }
 
 //한일 완료 체크하기
@@ -89,16 +82,21 @@ function displayTodos(){
     
     todoArr.forEach(function(aTodo){//로컬스토리지에서 가져온 투두리스트의 자료들만큼
         const todoItem = document.createElement('li')//li 생성
-        const todoContent = document.createElement('p')//내용들어갈 부분 
+        const div =document.createElement('div')//div 생성
+        todoItem.appendChild(div);
+        const editController = `<div class="edit-controller"><span class='save'>저장</span></div>`
+        todoItem.insertAdjacentHTML('beforeend',editController)
+        const todoContent = document.createElement('textarea')//내용들어갈 부분 
         const btnGroup = document.createElement('p')//버튼그룹 생성
         const todoDelBtn = document.createElement('span')//삭제버튼 생성
-        const todoEditBtn = document.createElement('span')//수정버튼 생성
+        const todoDoneBtn = document.createElement('span')//수정버튼 생성
         todoDelBtn.textContent='삭제'//그 안에 들어갈 삭제버튼 생성
-        todoEditBtn.textContent='수정'//그 안에 들어갈 삭제버튼 생성
+        todoDoneBtn.textContent='완료'//그 안에 들어갈 삭제버튼 생성
         todoContent.textContent = aTodo.todoText //li안에 들어갈 내용은 투두리스트 배열의 각 자료의 내용
         todoItem.title='클릭하면 완료됨'//li위에 마우스를 올리면 완료하는 방법 나옴
         todoDelBtn.title='클릭하면 삭제됨'//삭제버튼 위에 마우스 올리면 삭제하는법 설명             
      
+        
 
         // 완료스타일
         if(aTodo.todoDone){//만약 todoDone이 true가 되면
@@ -109,7 +107,7 @@ function displayTodos(){
         }        
 
         // 완료표시
-        todoItem.addEventListener('click',function(){
+        todoDoneBtn.addEventListener('click',function(){
             handleTodoItemClick(aTodo.todoId);           
           
        
@@ -120,20 +118,24 @@ function displayTodos(){
             handleTodoDelBtnClick(aTodo.todoId)         
         })
 
-        todoEditBtn.addEventListener('click',function(e){
-            e.stopPropagation();
-            todoForm.todo.value = aTodo.todoText;   //인풋창에 해당 내용 들어오게        
-            handleTodoEditBtnClick(aTodo.todoId);
-            edit_confirm.classList.add('on');//수정버튼 보이게
-            addTodo.classList.add('hidden')//기존 추가버튼 안보이게함
-
+        // 수정컨트롤러나오기
+        todoContent.addEventListener('click',function(e){
+        const editShow = document.querySelector('.edit-controller')
+        const EditSaveBtn = document.querySelector('.save')
+        editShow.classList.add('on');
+        EditSaveBtn.addEventListener('click',function(){            
+            handletodoDoneBtnClick(aTodo.todoId)
+            editShow.classList.remove('on');
         })
+         })
+    
+    
       
         todoList.appendChild(todoItem)//새로운 내용 추가
-        todoItem.appendChild(todoContent)//버튼그룹 추가
-        todoItem.appendChild(btnGroup)//버튼그룹 추가
+        div.appendChild(todoContent)//버튼그룹 추가
+        div.appendChild(btnGroup)//버튼그룹 추가
         btnGroup.appendChild(todoDelBtn)//삭제버튼 추가
-        btnGroup.appendChild(todoEditBtn)//수정버튼 추가
+        btnGroup.appendChild(todoDoneBtn)//수정버튼 추가
     })
 
     if(todoArr.length !==0){
@@ -143,6 +145,7 @@ function displayTodos(){
     }else{
         document.querySelector('.left-message').classList.remove('on')
     }
+
 
 }
 
