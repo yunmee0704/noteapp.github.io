@@ -244,4 +244,7 @@ body{
         padding: 0;
         font-size: 0;
     }
+    .app .left-message{
+        font-size: 0.8rem;
+    }
 }
