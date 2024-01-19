@@ -65,10 +65,12 @@ function displayTodos(){
         const todoItem = document.createElement('li')//li 생성
         const div1 =document.createElement('div')//div 생성
         const div2 =document.createElement('div')//div 생성
+        div2.className='save-btn-box';
         todoItem.appendChild(div1);
         todoItem.appendChild(div2);
         const EditSaveBtn = document.createElement('span')
         EditSaveBtn.textContent='저장'
+       
         const todoContent = document.createElement('textarea')//내용들어갈 부분 
         const btnGroup = document.createElement('p')//버튼그룹 생성
         const todoDelBtn = document.createElement('span')//삭제버튼 생성
@@ -119,10 +121,15 @@ function displayTodos(){
         }
         // 수정컨트롤러나오기
         todoContent.addEventListener('click',function(){
+            var elementsToHide = document.querySelectorAll('.save-btn-box');
+            elementsToHide.forEach(function (element) {
+                element.style.display = 'none';
+            });
+            div2.style.display='block';
             div2.classList.add('show'); //edit-controller 보이도록
         })
         //수정버튼 클릭시
-        EditSaveBtn.addEventListener('click',function(e){            
+        EditSaveBtn.addEventListener('click',function(e){          
             handletodoEditBtnClick(aTodo.todoId) //수정하여 배열에 다시 수정 저장 후 로컬스토리지에 저장            
         })   
     
@@ -130,7 +137,9 @@ function displayTodos(){
         todoList.appendChild(todoItem)//새로운 내용 추가
         div1.appendChild(todoContent)//버튼그룹 추가
         div1.appendChild(btnGroup)//버튼그룹 추가
-        div2.appendChild(EditSaveBtn)
+        div2.appendChild(EditSaveBtn);
+        
+      
         btnGroup.appendChild(todoDelBtn)//삭제버튼 추가
         btnGroup.appendChild(todoDoneBtn)//수정버튼 추가
     })
@@ -148,7 +157,7 @@ function displayTodos(){
 
 
 //할일 추가하기
-    todoForm.addEventListener('submit',function(e){
+todoForm.addEventListener('submit',function(e){
         e.preventDefault()//submit는 페이지가 새로고침하는 기능이 있어서 방지.
         if(todoForm.todo.value !== ''){//인풋창에 값이 공백이 아니면!
         // 내용,자료별 고유아이디, 할일 완료여부를 담은 자료를 객체로 저장함
@@ -163,7 +172,6 @@ function displayTodos(){
         displayTodos()//보여주기
         saveTools()//로컬스토리지에 저장   
     }
-    })
-
+})
 
 
